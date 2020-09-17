@@ -1,0 +1,65 @@
+version: '3'
+
+volumes:
+  mysql_data:
+    driver: local
+
+services:
+
+
+  ## --------------------------------------------
+  ## | 1: APP Web Server Php7 and required Extensions
+  ## --------------------------------------------
+  product_web:
+    ports:
+      - "8081:80"
+
+
+  ## --------------------------------------------
+  ## | 2: APP Web Server Php7 and required Extensions
+  ## --------------------------------------------
+  product_php:
+    volumes:
+      - ./docker/php/php_debug.ini:/usr/local/etc/php/conf.d/custom.ini
+
+
+
+  ## --------------------------------------------
+  ## | 3: database server
+  ## --------------------------------------------
+  product_mysql:
+    build:
+      context: ./docker/mysql
+      dockerfile: Dockerfile
+      args:
+        - UID=${APP_UID}
+        - GID=${APP_GID}
+
+    restart: unless-stopped
+    environment:
+      - MYSQL_DATABASE=${DB_MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${DB_MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${DB_MYSQL_USER}
+      - MYSQL_PASSWORD=${DB_MYSQL_PASSWORD}
+    ports:
+      - "127.0.0.1:3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/mysql/config.ini:/etc/mysql/conf.d/config.ini
+
+  ## --------------------------------------------
+  ## | 4: PhpMyAdmin
+  ## --------------------------------------------
+  product_phpmyadmin:
+    image: phpmyadmin/phpmyadmin:5.0.1
+    depends_on:
+      - product_mysql
+    ports:
+      - "127.0.0.1:8002:80"
+    environment:
+      - PMA_HOST=product_mysql
+    volumes:
+      - /sessions
+      - ./docker/phpmyadmin/save/:/var/www/phpmyadmin/save/
+      - ./docker/phpmyadmin/upload/:/var/www/phpmyadmin/upload/
+      - ./docker/phpmyadmin/config.php:/etc/phpmyadmin/config.user.inc.php
