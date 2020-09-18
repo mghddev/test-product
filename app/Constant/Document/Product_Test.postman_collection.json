@@ -1,0 +1,80 @@
+{
+	"info": {
+		"_postman_id": "730fef90-bba4-4ee5-b548-12127a57fbe4",
+		"name": "Product_Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "api of login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "admin@product.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "12345678",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{HostName}}/api/login",
+					"host": [
+						"{{HostName}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get list of products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HostName}}/api/product?filters[category]=corporis&search[field]=description&search[q]=Dicta",
+					"host": [
+						"{{HostName}}"
+					],
+					"path": [
+						"api",
+						"product"
+					],
+					"query": [
+						{
+							"key": "filters[category]",
+							"value": "corporis"
+						},
+						{
+							"key": "search[field]",
+							"value": "description"
+						},
+						{
+							"key": "search[q]",
+							"value": "Dicta"
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

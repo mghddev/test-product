@@ -52,7 +52,6 @@ Also, for filtering:
 `filters[field]=value` 
 
 Sample of csv file for inserting new products have been placed in folder app/Constant/Document.
-
-
+Also, You can find Postman json file and environment file in same folder. 
   
 
