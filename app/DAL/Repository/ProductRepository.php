@@ -52,8 +52,16 @@ class ProductRepository
 
         $array = $this->hyd->arrayOfEntitiesToArrayOfArrays($entities);
 
-        return $this->model->newQuery()
-            ->insert($array);
+        // Make a collection to use the chunk method
+        $insert_data = collect($array);
+        $chunks = $insert_data->chunk(200);
+
+        foreach ($chunks as $chunk)
+        {
+            $this->model->newQuery()
+                ->insert($chunk->toArray());
+        }
+
     }
 
     /**
