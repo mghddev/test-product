@@ -1,14 +1,17 @@
 <?php
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers;
 
 use App\Action\ActionGetArrayDataOfCsvFile;
 use App\Action\ActionInsertProducts;
 use App\Hydrate\ProductHyd;
 use App\Validation\CreateProductsFromExcelValidation;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 /**
  * Class HttpApiUploadExcelFileOfProductAndBulkInsert
@@ -86,5 +89,13 @@ class HttpUploadExcelFileOfProductAndBulkInsert
     {
         $name = 'CSVFiles' . DIRECTORY_SEPARATOR .time();
         Storage::disk()->put($name, $file);
+    }
+
+    /**
+     * @return Application|Factory|View
+     */
+    public function getPage()
+    {
+        return view('upload-products');
     }
 }

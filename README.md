@@ -32,6 +32,11 @@ This command cause inserting a user as admin. This admin has below username and 
 - username = admin@product.test
 - password = 12345678
 
+
+For running unit tests you should run below command:
+
+`docker-compose exec product_php vendor/bin/phpunit`
+
 ###EndPoints
 This project has two main endpoints as below:
 - Insert products from csv file (/admin/product)
@@ -47,7 +52,6 @@ Also, for filtering:
 `filters[field]=value` 
 
 Sample of csv file for inserting new products have been placed in folder app/Constant/Document.
-
 
 
   

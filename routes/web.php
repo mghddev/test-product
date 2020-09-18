@@ -21,12 +21,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::middleware('auth-admin')
-    ->get('/admin/product', function () {
-        return view('upload-products');
-    })->name('admin-upload-products');
-
 
 Route::group(['middleware' => ['auth-admin']], function () {
-    Route::Post('/admin/product', 'HttpUploadExcelFileOfProductAndBulkInsert')->name('admin-upload-file');
+    Route::get('/admin/product', 'HttpUploadExcelFileOfProductAndBulkInsert@getPage')->name('admin-upload-products');
+
+    Route::Post('/admin/product', 'HttpUploadExcelFileOfProductAndBulkInsert@__invoke')->name('admin-upload-file');
 });

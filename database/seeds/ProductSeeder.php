@@ -32,6 +32,14 @@ class ProductSeeder extends Seeder
         $faker = Faker::create('App\Product');
         $entities = [];
 
+        ### for using in unit test
+        $entities[] = (new ProductEntity())
+            ->setCategory('unitTest')
+            ->setProductName('productName')
+            ->setPrice(12345)
+            ->setDescription('description')
+            ->setQuantity(158);
+
         for ($i = 0; $i < 1000; $i++) {
             $entity = new ProductEntity();
 

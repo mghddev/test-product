@@ -53,7 +53,7 @@ class LoginController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return redirect()->route('admin-upload-products')->withCookie(cookie('auth_token', $token));
+        return redirect()->route('index')->withCookie(cookie('auth_token', $token));
     }
 
     public function logout()
